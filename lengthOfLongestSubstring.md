@@ -2,7 +2,7 @@
 
 Link => [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
-**题目：给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。**
+题目：给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
 
 > 示例 1：<br />
 > 输入: s = "abcabcbb"<br />
