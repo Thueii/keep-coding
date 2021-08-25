@@ -17,7 +17,7 @@ Link => [两数之和](https://leetcode-cn.com/problems/two-sum/)
 > 输入：nums = [3,3], target = 6<br />
 > 输出：[0,1]<br />
 
-```
+```python
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         adict = {}

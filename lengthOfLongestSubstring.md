@@ -23,7 +23,7 @@ Link => [无重复字符的最长子串](https://leetcode-cn.com/problems/longes
 > 输入: s = ""<br />
 > 输出: 0<br />
 
-```
+```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         if s == "":

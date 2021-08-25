@@ -17,7 +17,7 @@ Link => [两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
 > 输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]<br />
 > 输出：[8,9,9,9,0,0,0,1]<br />
 
-```
+```python
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
