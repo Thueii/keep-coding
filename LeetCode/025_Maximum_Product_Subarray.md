@@ -79,4 +79,32 @@ class Solution:
             return max(res)
 
 ```
+改进：
+执行结果：
+通过
+显示详情
+
+添加备注
+执行用时：36 ms, 在所有 Python3 提交中击败了83.39% 的用户
+内存消耗：14.9 MB, 在所有 Python3 提交中击败了95.93% 的用户
+通过测试用例：187 / 187
+```python
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        # 主要思想是要维持一个最大值和一个最小值
+        # 因为当遇到负数时，与最小值的乘积就是最大值了
+        # 而当遇到0则无所谓考虑了
+        # 主要要想到这个位置，怎么样才是最大值，反着想需要什么
+        # 再把需要的东西一步步保存下来
+        res = -inf
+        min_ = 1
+        max_ = 1
+        for i in nums:
+            if i < 0:
+                max_, min_ = min_, max_
+            max_ = max(max_*i, i)
+            min_ = min(min_*i, i)
+            res = max(res, max_)
+        return res
+```
 **Tag: 栈、数组、单调栈**
