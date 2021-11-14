@@ -1,4 +1,4 @@
-# 不同的二叉搜索树 
+# 不同的二叉搜索树  
 
 Link => [不同的二叉搜索树](https://leetcode-cn.com/problems/unique-binary-search-trees/)
 
