@@ -48,5 +48,46 @@ class Solution:
         else:
             return dfs(n)
 ```
+**改进：**
 
+- 其实发现两边是对称的，只要做一半就好，但是要分奇偶
+
+- 执行结果：
+通过
+显示详情
+
+- 添加备注
+执行用时：24 ms, 在所有 Python3 提交中击败了96.58% 的用户
+内存消耗：14.9 MB, 在所有 Python3 提交中击败了51.27% 的用户
+通过测试用例：19 / 19
+
+```python
+class Solution:
+    def numTrees(self, n: int) -> int:
+        adict = {}
+        def dfs(n):
+            if n == 0:
+                return 1
+            elif n == 1:
+                return 1
+            else:
+                res = 0
+                for each in range(1, n//2 + 1):
+                    x = adict.get(each - 1) if adict.get(each - 1) else dfs(each - 1)
+                    y = adict.get(n - each) if adict.get(n - each) else dfs(n - each)
+                    res += x * y
+                    if not adict.get(each - 1):
+                        adict[each - 1] = x
+                    if not adict.get(n - each):
+                        adict[n - each] = y
+                if n % 2 == 1:
+                    res = 2 * res + dfs(n//2)**2
+                else:
+                    res = 2 * res
+                return res
+        if n == 1:
+            return 1
+        else:
+            return dfs(n)
+```
 **Tag: 树、二叉搜索树、数学、动态规划、二叉树**
