@@ -52,6 +52,33 @@ class Solution:
 
         dfs2(root)
         return root
+```
+**改进：**
 
+- 执行用时：60 ms, 在所有 Python3 提交中击败了61.19% 的用户
+内存消耗：17.1 MB, 在所有 Python3 提交中击败了73.09% 的用户
+通过测试用例：215 / 215
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def dfs(root):
+            # 反中序!!!!好好体会!!!!
+
+            nonlocal res
+            if not root:
+                return
+            dfs(root.right)
+            res += root.val
+            root.val = res
+            dfs(root.left)
+        res = 0
+        dfs(root)
+        return root
 ```
 **Tag: 树、深度优先搜索、二叉树**
