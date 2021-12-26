@@ -55,5 +55,20 @@ class Solution:
             i += 1
         return total / k
 ```
-
+**2021/12/26**
+- 执行用时：164 ms, 在所有 Python3 提交中击败了88.74% 的用户
+内存消耗：23.9 MB, 在所有 Python3 提交中击败了12.29% 的用户
+通过测试用例：127 / 127
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        res = sum(nums[:k])
+        tmp = res
+        head = 0
+        for num in nums[k::]:
+            tmp = tmp-nums[head]+num
+            res = max(res, tmp)
+            head += 1
+        return res/k
+```
 **Tag: 数组、滑动窗口**
