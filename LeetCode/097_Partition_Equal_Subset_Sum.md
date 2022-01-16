@@ -46,38 +46,6 @@ class Solution:
         dp = [set() for i in range(len(nums))] # 同一层剩下的数字一样的话，其实结果是一样的，所以记忆化搜索
         return dfs(nums, 0, target)
 ```
-**改进**
-这题一看就要用动态规划，但是不知道怎么规划，一直想着从哪个开头，其实不然，应该从哪个结束开始想
-这样能把分析分为两部分，且连续，但是自己肯定想不出来= =，看了一晚上题解加上早上，才看到一个，终于懂了
-其实拿回溯的想法更容易懂，我放最下面po上吧
-
-- 执行用时：5640 ms, 在所有 Python3 提交中击败了71.18% 的用户
-内存消耗：20.3 MB, 在所有 Python3 提交中击败了94.71% 的用户
-通过测试用例：71 / 71
-
-```python
-class Solution:
-    def maxCoins(self, nums: List[int]) -> int:
-        # 打一下log才知道小这个做小区间再到大区间是什么意思
-        nums = [1] + nums + [1]
-        memo = [[0]*len(nums) for i in range(len(nums))]
-
-        def cal_k(i, j):
-            tmp = 0
-            for k in range(i+1, j):
-                left = memo[i][k]
-                right = memo[k][j]
-                tmp = max(tmp, left+right+nums[i]*nums[j]*nums[k])
-            memo[i][j] = tmp
-
-        for n in range(2, len(nums)):
-            for i in range(0, len(nums)-n):
-                cal_k(i,i+n)
-
-        return memo[0][len(nums)-1]
-
-```
-**改进**
 动态规划，实在不太直观，又是啃了好久才看懂，dp[i][j]表示[0,i]区间内是否能有和为j的子串
 ```python
 class Solution:
