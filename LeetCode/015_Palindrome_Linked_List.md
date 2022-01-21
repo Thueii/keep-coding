@@ -133,4 +133,92 @@ class Solution:
                 cur = cur.next
         return True
 ```
+**2022/01/22**
+准确的说我现在变得很蠢
+但是如果是改变前半段就可以接着走着比较更省时间
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        count = 0
+        root = head
+        while head:
+            count += 1
+            head = head.next
+        if count & 1:
+            pre_fast = count // 2 + 1
+        else:
+            pre_fast = count // 2
+
+        dummy = ListNode(-1)
+        dummy.next = root
+        fast = dummy
+        while pre_fast > 0:
+            fast = fast.next
+            pre_fast -= 1
+
+        last_one = None
+        
+        forward = fast.next
+        fast.next = None
+        while forward and forward.next:
+            tmp = forward
+            forward = forward.next
+            tmp.next = last_one
+            last_one = tmp
+        if forward:
+            forward.next = last_one
+            last_one = forward
+
+        dummy = dummy.next
+        while dummy and last_one:
+            if dummy.val != last_one.val:
+                return False
+            dummy = dummy.next
+            last_one = last_one.next
+        return True
+```
+**只做前半段**
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        count = 0
+        root = head
+        while head:
+            head = head.next
+            count += 1
+
+        if count & 1:
+            flag = True
+        else:
+            flag = False
+        
+        count = count // 2
+
+        pre, cur = None, root
+        for _ in range(count):
+            nex = cur.next
+            cur.next = pre
+            pre = cur
+            cur = nex
+        if flag:
+            cur = cur.next
+
+        while cur and pre:
+            if cur.val != pre.val:
+                return False
+            cur = cur.next
+            pre = pre.next
+        
+        return True
+```
 **Tag: 栈、链表、递归、双指针**
