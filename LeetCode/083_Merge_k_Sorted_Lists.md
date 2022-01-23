@@ -213,4 +213,22 @@ class Solution:
             p = p.next
         return dummy.next 
 ```
+**2022/01/23**
+```python
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        import heapq
+        stack = []
+        for listi in lists:
+            while listi:
+                heapq.heappush(stack, listi.val)
+                listi = listi.next
+        dummy = ListNode(-1)
+        cur = dummy
+        while stack:
+            tmp = ListNode(heapq.heappop(stack))
+            cur.next = tmp
+            cur = tmp
+        return dummy.next
+```
 **Tag: 链表、分治、堆、归并排序**
