@@ -81,5 +81,29 @@ class Solution:
                 root.left = None
             root = root.right
 ```
-
+**2022/01/23**
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        cur = root
+        while cur:
+            if cur.left:
+                left_p = cur.left
+                while left_p.right:
+                    left_p = left_p.right
+                left_p.right = cur.right
+                cur.right = cur.left
+                cur.left = None
+            cur = cur.right
+        return root
+```
 **Tag: 栈、树、深度优先搜索、链表、二叉树**
