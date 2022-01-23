@@ -47,5 +47,25 @@ class Solution:
 
         return p.next
 ```
-
+**2022/01/23**
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        alist = []
+        while head:
+            alist.append(head.val)
+            head = head.next
+        alist.sort()
+        dummy = ListNode(-1)
+        cur = dummy
+        for num in alist:
+            cur.next = ListNode(num)
+            cur = cur.next
+        return dummy.next
+```
 **Tag: 链表、双指针、分治、排序、归并排序**
