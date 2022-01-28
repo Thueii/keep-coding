@@ -117,5 +117,57 @@ class Solution:
             if res:
                 return res
 ```
+**回溯也要会做**
 
+- 执行用时：884 ms, 在所有 Python3 提交中击败了17.78% 的用户
+内存消耗：15.2 MB, 在所有 Python3 提交中击败了57.19% 的用户
+通过测试用例：127 / 127
+
+```python
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        left, right = 0, 0
+        for i in s:
+            if i == "(":
+                left += 1
+            elif i == ")":
+                if left > 0:
+                    left -= 1
+                else:
+                    right += 1
+
+        def is_valid(s):
+            count = 0
+            for i in s:
+                if i == "(":
+                    count += 1
+                elif i == ")":
+                    if count >0 :
+                        count -= 1
+                    else:
+                        return False
+            return count == 0
+
+        res = set()
+
+        def helper(s, start, lremove, rremove):
+            if lremove == 0 and rremove == 0:
+                if is_valid(s):
+                    res.add(s)
+                return
+            for i in range(start, len(s)):
+                if i > start and s[i] == s[i - 1]:
+                    continue
+                if lremove + rremove > len(s[i:]):
+                    break
+                if s[i] != "(" and s[i] != ")":
+                    continue
+                if lremove > 0:
+                    helper(s[:i] + s[i+1:], i, lremove-1, rremove)
+                if rremove > 0:
+                    helper(s[:i] + s[i+1:], i, lremove, rremove-1)
+            return
+        helper(s, 0, left, right)
+        return list(res)
+```
 **Tag: 字符串、广度优先搜索、回溯**
