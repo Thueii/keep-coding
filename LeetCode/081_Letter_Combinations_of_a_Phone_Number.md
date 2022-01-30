@@ -103,5 +103,53 @@ class Solution:
         return self.ans
 
 ```
+**2022/01/30**
+```python
+# 回溯
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if digits == "":
+            return []
+        #数字对应的英文字母列表
+        word_list = {
+            "2":"abc", 
+            "3":"def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz"
+        }
+        res = []
+        def dfs(left_num, now):
+            if len(left_num) == 0:
+                res.append(now[:])
+                return
+            for i in word_list[left_num[0]]:
+                dfs(left_num[1:], now+i)
+        dfs(digits, "")
+        return res
+```
+```python
+# 迭代
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        #数字对应的英文字母列表
+        word_list = ["0", "0", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
 
+        res = []
+        for num in digits:
+            tmp = []
+            now_word_list = word_list[int(num)]
+            if res:
+                for i in now_word_list:
+                    for j in res:
+                        tmp.append(j+i)
+            else:
+                for i in now_word_list:
+                    tmp.append(i)
+            res = tmp
+        return res
+```
 **Tag: 哈希表、字符串、回溯**
