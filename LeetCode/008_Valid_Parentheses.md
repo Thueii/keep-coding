@@ -39,5 +39,25 @@ class Solution:
         else:
             return True
 ```
-
+**2022/01/31**
+- 执行用时：24 ms, 在所有 Python3 提交中击败了98.08% 的用户
+内存消耗：15.1 MB, 在所有 Python3 提交中击败了11.97% 的用户
+通过测试用例：91 / 91
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for i in s:
+            if i in ["(","[","{"]:
+                stack.append(i)
+            else:
+                if not stack:
+                    return False
+                last = stack.pop()
+                if last == "(" and i != ")" or \
+                    last == "[" and i != "]" or \
+                    last == "{" and i != "}":
+                    return False
+        return not stack
+```
 **Tag: 栈、字符串**
