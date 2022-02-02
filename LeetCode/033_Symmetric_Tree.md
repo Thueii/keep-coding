@@ -142,4 +142,27 @@ class Solution:
             stack.append(right.left)
         return True
 ```
+**2022/02/03**
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        def dfs(l, r):
+            # 左右是镜面对称
+            if not l and not r:
+                return True
+            if not l or not r:
+                return False
+            if l.val != r.val:
+                return False
+            return dfs(l.left, r.right) and dfs(l.right, r.left)
+        return dfs(root.left, root.right)
+```
 **Tag: 树、深度优先搜索、广度优先搜索、二叉树**
