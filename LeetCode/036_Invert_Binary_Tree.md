@@ -71,4 +71,47 @@ class Solution:
                 stack.append(temp.right)
         return root
 ```
+**2022/02/03**
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return 
+        stack = [root]
+        while stack:
+            tmp = []
+            for node in stack:
+                node.left, node.right = node.right, node.left
+                if node.left:
+                    tmp.append(node.left)
+                if node.right:
+                    tmp.append(node.right)
+            stack = tmp
+        return root
+```
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        # 回溯
+        if not root:
+            return
+        root.left, root.right = root.right, root.left
+        if root.left:
+            self.invertTree(root.left)
+        if root.right:
+            self.invertTree(root.right)
+        return root
+```
 **Tag: 树、深度优先搜索、广度优先搜索、二叉树**
