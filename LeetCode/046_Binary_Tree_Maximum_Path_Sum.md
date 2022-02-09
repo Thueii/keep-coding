@@ -64,5 +64,39 @@ class Solution:
         return self.path_sum
 
 ```
+**2022/02/09**
+```golang
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+var path int
 
+func max(n, m int) int {
+    if n > m {
+        return n
+    }
+    return m
+}
+func dfs(root *TreeNode) int {
+    if root == nil {
+        return 0
+    }
+    left := dfs(root.Left)
+    right := dfs(root.Right)
+    path = max(path, root.Val + left + right)
+
+    return max(root.Val + max(left, right), 0)
+}
+
+func maxPathSum(root *TreeNode) int {
+    path = math.MinInt32
+    dfs(root)
+    return path
+}
+```
 **Tag: 树、深度优先搜索、动态规划、二叉树**
