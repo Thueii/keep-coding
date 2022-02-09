@@ -41,4 +41,41 @@ class Solution:
             return rob, not_rob
         return max(rob_or_not_rob(root)) # 返回偷或者不偷当前节点的最大值
 ```
+**2022/02/09**
+返回切片比返回两个数字快一倍！！
+
+- 执行用时：4 ms, 在所有 Go 提交中击败了95.27% 的用户
+内存消耗：5.3 MB, 在所有 Go 提交中击败了69.92% 的用户
+通过测试用例：124 / 124
+```golang
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func max(n,m int) int {
+    if n >= m {
+        return n
+    }
+    return m
+}
+func rob(root *TreeNode) int {
+    var dfs func(root *TreeNode) []int
+    dfs = func(root *TreeNode) []int{
+        if root == nil{
+            return []int{0, 0}
+        }
+        left := dfs(root.Left)
+        right := dfs(root.Right)
+        rob := root.Val + left[1] + right[1]
+        not_rob := max(left[0], left[1]) + max(right[0], right[1])
+        return []int{rob, not_rob}
+    }
+    res := dfs(root)
+    return max(res[0], res[1])
+}
+```
 **Tag: 数、深度优先搜索、动态规划、二叉树**
