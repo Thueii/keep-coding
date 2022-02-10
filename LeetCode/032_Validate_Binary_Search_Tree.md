@@ -116,4 +116,39 @@ class Solution:
         return True
 
 ```
+**2022/02/10**
+边做边判断
+
+- 执行用时：4 ms, 在所有 Go 提交中击败了94.20% 的用户
+内存消耗：5 MB, 在所有 Go 提交中击败了92.89% 的用户
+通过测试用例：80 / 80
+
+```golang
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func isValidBST(root *TreeNode) bool {
+    prev := math.MinInt64
+    var dfs func (root *TreeNode) bool
+    dfs = func (root *TreeNode) bool {
+        if root == nil {
+            return true
+        }
+        leftres := dfs(root.Left)
+        if root.Val <= prev {
+            return false
+        }
+        prev = root.Val
+        rightres := dfs(root.Right)
+        return leftres && rightres
+    }
+    
+    return dfs(root)
+}
+```
 **Tag: 树、深度优先搜索、二叉树、二叉搜索树**
