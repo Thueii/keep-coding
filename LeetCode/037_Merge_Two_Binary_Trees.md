@@ -50,4 +50,32 @@ class Solution:
         root1.right = self.mergeTrees(root1.right, root2.right)
         return root1
 ```
+**2022/02/10**
+golang飞速啊
+
+- 执行用时：12 ms, 在所有 Go 提交中击败了95.42% 的用户
+内存消耗：6.7 MB, 在所有 Go 提交中击败了92.81% 的用户
+通过测试用例：182 / 182
+```golang
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
+    if root1 == nil {
+        return root2
+    }
+    if root2 == nil {
+        return root1
+    }
+    root1.Val += root2.Val
+    root1.Left = mergeTrees(root1.Left, root2.Left)
+    root1.Right = mergeTrees(root1.Right, root2.Right)
+    return root1
+}
+```
 **Tag: 树、深度优先搜索、广度优先搜索、二叉树**
