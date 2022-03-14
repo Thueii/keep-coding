@@ -94,5 +94,35 @@ class Solution:
             else:
                 return (max(nums1[up-1],nums2[down-1])+min(nums1[up],nums2[down]))/2
 ```
+**2022/03/14**
+```python
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        def findKmin(k):
+            index1, index2 = 0, 0
+            while True:
+                if index1 >= len1:
+                    return nums2[index2+k-1]
+                if index2 >= len2:
+                    return nums1[index1+k-1]
+                if k == 1:
+                    return min(nums1[index1],nums2[index2])
 
+                tmp = k // 2
+                newindex1 = min(index1+tmp-1, len1-1)
+                newindex2 = min(index2+tmp-1, len2-1)
+                if nums1[newindex1] <= nums2[newindex2]:
+                    k = k-(newindex1-index1+1) # 因为index是开始的第一个，不是结束的最后一个
+                    index1 = newindex1+1
+                else:
+                    k = k-(newindex2-index2+1)
+                    index2 = newindex2+1
+
+        len1 = len(nums1)
+        len2 = len(nums2)
+        if (len1+len2) % 2:
+            return findKmin((len1+len2+1)//2)
+        else:
+            return (findKmin((len1+len2)//2)+findKmin((len1+len2)//2+1))/2
+```
 **Tag: 数组、二分查找、分治**
