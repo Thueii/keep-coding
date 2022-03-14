@@ -43,5 +43,19 @@ class Solution:
             adict[v] = i
         return max(res)
 ```
-
+**2022.3.14**
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        adict = {}
+        start = 0
+        res = 0
+        for idx in range(len(s)):
+            if s[idx] not in adict or adict[s[idx]] < start:
+                res = max(res, idx - start + 1)
+            else:
+                start = adict[s[idx]] + 1
+            adict[s[idx]] = idx
+        return res
+```
 **Tag: 哈希表、字符串、滑动窗口**
