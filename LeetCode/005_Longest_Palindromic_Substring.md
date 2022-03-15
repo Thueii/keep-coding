@@ -44,5 +44,50 @@ class Solution:
             return s[0]
         return s[resl:resr+1]
 ```
+**2022/03/15**
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        # 中心扩展，注意双中心的情况 时间复杂度O(n^2) 空间复杂度 O(1)
 
+        length = len(s)
+        start = 0
+        max_len = 1
+        for i in range(length):
+            size = 1
+            while i-size >= 0 and i+size<length and s[i-size] == s[i+size]:
+                if 2*size+1>max_len:
+                    max_len = 2*size+1
+                    start = i-size
+                size += 1
+            if i + 1 == length:
+                break
+            size = 0
+            while i-size >= 0 and i+size+1 < length and s[i-size] == s[i+size+1]:
+                if 2*size+2>max_len:
+                    max_len = 2*size+2
+                    start = i-size
+                size += 1
+        return s[start:start+max_len]
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        # 动态规划，慢一些 时间复杂度 O(n^2) 空间复杂度 O(n^2)
+
+        dp = [[True] * len(s) for i in range(len(s))]
+        max_len = 1
+        res = s[0]
+        for length in range(len(s) - 1):
+            for i in range(len(s)):
+                j = i + length + 1
+                if j >= len(s):
+                    break
+                if s[i] != s[j] or not dp[i + 1][j - 1]:
+                    dp[i][j] = False
+                else:
+                    if j - i + 1 > max_len:
+                        max_len = j - i + 1
+                        res = s[i:j+1]
+        return res
+```
 **Tag: 字符串、动态规划**
