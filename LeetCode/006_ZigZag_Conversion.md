@@ -1,7 +1,6 @@
 # Z 字形变换
 
-Link => [Z 字形变换
-](https://leetcode-cn.com/problems/zigzag-conversion/)
+Link => [Z 字形变换](https://leetcode-cn.com/problems/zigzag-conversion/)
 
 **题目：将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
 **
@@ -100,5 +99,25 @@ class Solution:
         return res
 
 ```
-
+**2022/03/15**
+```python
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1:
+            return s
+        adict = collections.defaultdict(str)
+        t = 2*(numRows-1)
+        for i in range(len(s)):
+            mod = i % t
+            if mod > numRows - 1:
+                adict[numRows-(mod % numRows)-2] += s[i]
+            else:
+                adict[mod] += s[i]
+        res = ""
+        for i in range(numRows):
+            if i not in adict:
+                break
+            res += adict[i]
+        return res
+```
 **Tag: 字符串**
