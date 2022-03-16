@@ -82,6 +82,41 @@ class Solution:
         return res
 ```
 
-**改进**
+**2022/03/16**
+- 执行用时：52 ms, 在所有 Python3 提交中击败了66.35% 的用户
+内存消耗：15.1 MB, 在所有 Python3 提交中击败了38.03% 的用户
+通过测试用例：353 / 353
 
+```python
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        dp = [[False] * (len(s)+1) for _ in range(len(p)+1)]
+
+        dp[0][0] = True
+        s = list(s)
+        p = list(p)
+        s.insert(0, "")
+        p.insert(0, "")
+
+        for i in range(1, len(dp)):
+            for j in range(len(dp[0])):
+                if p[i] == ".":
+                    if j-1>=0 and dp[i-1][j-1]:
+                        dp[i][j] = True
+                elif p[i] == "*":
+                    if dp[i-1][j]:
+                        dp[i][j] = True
+                        flag = False
+                    elif dp[i-2][j]:
+                        dp[i][j] = True
+                        flag = True
+                    elif j-1>=0 and dp[i][j-1] and not flag and (s[j] == s[j-1] or p[i-1] == "."):
+                        dp[i][j] = True
+                    else:
+                        flag = False
+                elif s[j] == p[i]:
+                    if j-1 >= 0 and dp[i-1][j-1]:
+                        dp[i][j] = True
+        return dp[-1][-1]
+```
 **Tag: 递归、字符串、动态规划**
